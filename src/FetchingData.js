@@ -1,48 +1,39 @@
-import './FetchingData.css'
-import {useState, useEffect} from 'react'
+import './FetchingData.css';
+import Pagination from './Pagination';
+import {useState} from 'react';
+
 
 function FetchingData(){
     const [inputValue, setInputValue] = useState('');
     const [numFound, setNumFound] = useState('');
     const [tableItems, setTableItems] = useState([]);
-    const [pages, setPages] = useState(+'');
+    const [pages, setPages] = useState(null);
 
 
-    function handleButton(e){
+    function handleInput(e){
+        
         e.preventDefault();
 
-        fetch(`http://openlibrary.org/search.json?q=${inputValue}`).then((res)=>{
+        fetch(`http://openlibrary.org/search.json?q=${inputValue}`).then(async (res)=>{
 
             return res.json();
     
-        }).then((res)=>{
-            console.log(res);
+        }).then( async (res)=>{
             setNumFound(res.numFound);
             setTableItems(res.docs);
-            setPages(Math.ceil(res.numFound/100));
-          
+           await setPages(Math.ceil(res.numFound/100));
         })
-      
-        for (let i = 0; i <= pages; i++) {
-            
-            if(i === 1){
-             
-                return(
-                    <button>{i}</button>
-                )
-            }
-           
-        }
-    }
 
+    }
+ 
 
     return(
         <>
             <h2 className='searchResults'>{`Results of search are equal: ${numFound}`}</h2>
             <div className="bookSearch">
                 <form action="" onSubmit={(e)=> {
-                     handleButton(e)
-                     setInputValue('')
+                    handleInput(e);
+                        
                 }}>
 
                     <input type="text" name="" id="" placeholder="Search a book..."  value={inputValue} 
@@ -53,35 +44,9 @@ function FetchingData(){
                     <button className="searchBtn" type="submit">Search</button>
                 </form>
             </div>
-        <table>
-            <thead>
-                <tr className="header">
-                    <th>Author</th>
-                    <th>Title</th>
-                    <th>First Publish Year</th>
-                    <th>Subject</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                {tableItems.map((item)=>{
-                    {console.log(item)}
-                    return(
-                        <tr>
-                            <td>{item.title}</td>
-                            <td>{item.author_name}</td>
-                            <td>{item.first_publish_year}</td>
-                            <td>{item.subject}</td>
-                        </tr>
-                    )
-                   
-                })}
-            </tbody>
-           
-        </table>
-        <div className="pagination">
-           {/* {console.log(pages)} */}
-        </div>
+
+            {tableItems.length>=100 ? <Pagination pages = {pages} inputValue = {inputValue}  tableItems={tableItems} /> : ''}
+
         </>
     )
 }
