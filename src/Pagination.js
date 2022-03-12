@@ -38,13 +38,11 @@ useEffect(()=>{
                         i +=1;
                     }
                         return (
-                            <>
                                 
-                                <button key={i} style={{width:'50px', height:'30px'}} onClick={(e)=>{
-                                    handlePages(e);
-                                }}>{i}</button>
-    
-                            </>    
+                            <button key={i} style={{width:'50px', height:'30px'}} onClick={(e)=>{
+                                handlePages(e);
+                            }}>{i}</button>
+  
                         )
                     
                 })}
