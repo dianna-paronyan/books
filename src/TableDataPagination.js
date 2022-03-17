@@ -4,11 +4,11 @@ function TableDataPagination({paginTableItems}){
              <table>
                 
                 <tbody>
-                    {paginTableItems.map((item)=>{
+                    {paginTableItems.map((item, i)=>{
                     
                             return(
                                 
-                                <tr key={Math.random()}>
+                                <tr key={i}>
                                     <td>{item.title}</td>
                                     <td>{item.author_name}</td>
                                     <td>{item.first_publish_year}</td>
@@ -16,7 +16,6 @@ function TableDataPagination({paginTableItems}){
                                 </tr>
                             
                             )
-                    
                     })}
                 </tbody>
            

@@ -3,7 +3,7 @@ function TableData({tableItems}){
         <>
              <table>
                 <thead>
-                    <tr className="header" key={Math.random()}>
+                    <tr className="header">
                         <th>Author</th>
                         <th>Title</th>
                         <th>First Publish Year</th>

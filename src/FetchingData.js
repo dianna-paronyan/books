@@ -1,6 +1,6 @@
-import './FetchingData.css';
 import Pagination from './Pagination';
 import {useState} from 'react';
+import './FetchingData.css';
 
 
 function FetchingData(){
@@ -14,14 +14,14 @@ function FetchingData(){
         
         e.preventDefault();
 
-        fetch(`http://openlibrary.org/search.json?q=${inputValue}`).then(async (res)=>{
+        fetch(`http://openlibrary.org/search.json?q=${inputValue}`).then((res)=>{
 
             return res.json();
     
-        }).then( async (res)=>{
+        }).then((res)=>{
             setNumFound(res.numFound);
             setTableItems(res.docs);
-           await setPages(Math.ceil(res.numFound/100));
+            setPages(Math.ceil(res.numFound/100));
         })
 
     }

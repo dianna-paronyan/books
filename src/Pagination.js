@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import TableData from "./TableData";
 import TableDataPagination from "./TableDataPagination";
+import { useEffect, useState } from "react";
 
 
 function Pagination({pages, inputValue, tableItems}){
@@ -14,8 +14,7 @@ function Pagination({pages, inputValue, tableItems}){
 
         }).then((res)=>{
             setPaginTableItems(res.docs)
-            console.log(res);
-            
+            console.log(res); 
         })
               
     }
@@ -32,19 +31,15 @@ useEffect(()=>{
             {show ? <TableData tableItems={tableItems}/> : <TableDataPagination paginTableItems={paginTableItems} />}
             <div className="pagination">
                 { [...Array(pages)].fill().map((_e,i) => {
-                    if(i===0){
-                        i = 1;
-                    }else{
-                        i +=1;
-                    }
+
+                    // i===0 ?  i=1 : i += 1;
                         return (
                                 
-                            <button key={i} style={{width:'50px', height:'30px'}} onClick={(e)=>{
+                            <button key={i+1} style={{width:'50px', height:'30px'}} onClick={(e)=>{
                                 handlePages(e);
-                            }}>{i}</button>
+                            }}>{i+1}</button>
   
-                        )
-                    
+                        ) 
                 })}
          </div> 
         </>
